@@ -1,0 +1,59 @@
+<div class="content" role="main">
+  <div class="card highlight-card card-small demo-button" (click)="login()">
+    <span> Login</span>
+  </div>
+
+  <div class="card highlight-card card-small demo-button" (click)="logout()">
+    <span> Logout</span>
+  </div>
+</div>
+
+<h2>Auth state: <span [ngStyle]="{ color: oidcService.authState ? 'green' : 'red' }">{{oidcService.authState ? 'Logged in' : 'Logged out'}}</span></h2>
+<div class="state-container">
+  <div>
+    <pre class="auth-state">{{ oidcService.authState ? (oidcService.authState | json) : '' }}</pre>
+  </div>
+</div>
+
+<br>
+<br>
+
+<h2>
+Resources last loaded: {{lastLoadedAt ? (lastLoadedAt | date:'medium') : 'Not loaded yet'}}
+</h2>
+<button (click)="demoGetResources()">Load resources</button>
+<div>
+  unprotected resource (should always load):
+</div>
+<div *ngIf="unprotectedResource" style="color: green">
+  {{unprotectedResource}}
+</div>
+<div *ngIf="lastLoadedAt && !unprotectedResource" style="color: red">
+  Could not load
+</div>
+
+<br>
+<br>
+
+<div>
+  protected resource with OIDC jwt: (should always <strong>load</strong> if auth state true):
+</div>
+<div *ngIf="protectedResource" style="color: green">
+  {{protectedResource}}
+</div>
+<div *ngIf="lastLoadedAt && !protectedResource" style="color: red">
+  Could not load
+</div>
+
+<br>
+<br>
+
+<div>
+  protected resource with foreign jwt: (should <strong>always fail</strong>):
+</div>
+<div *ngIf="protectedResourceWithForeignJwt" style="color: green">
+  {{protectedResourceWithForeignJwt}}
+</div>
+<div *ngIf="lastLoadedAt && !protectedResourceWithForeignJwt" style="color: red">
+  Could not load
+</div>

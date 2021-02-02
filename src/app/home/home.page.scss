@@ -1,0 +1,17 @@
+
+.state-container,
+.discovery {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  > * {
+    margin: auto;
+  }
+}
+
+pre {
+  max-width: 90vw;
+  word-wrap: break-word !important;
+  white-space: pre-wrap;
+}
